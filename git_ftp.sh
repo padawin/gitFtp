@@ -78,11 +78,11 @@ then
             read -p "Project path: " applicationPath
         done
     fi
-else
-    if [ "x$ftpHost" = "x" ] || [ "x$ftpUser" = "x" ] || [ "x$ftpPassword" = "x" ] || [ "x$applicationPath" = "x" ]
-    then
-        echo "Some vars are missing, try -h option to get some help" >&2
-    fi
+fi
+
+if [ "x$ftpHost" = "x" ] || [ "x$ftpUser" = "x" ] || [ "x$ftpPassword" = "x" ] || [ "x$applicationPath" = "x" ]
+then
+    echo "Some vars are missing, try -h option to get some help" >&2
 fi
 
 
