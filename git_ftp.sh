@@ -14,8 +14,9 @@ applicationPath=''
 while getopts ":hH:iu:p:P:" opt; do
   case $opt in
     h)
-      echo "Help !!"
-      exit 1
+      echo "Usage : git_ftp.sh [-H host [-u username [-p password [-P projectPath [-i]]]]]"
+      echo "with -i option, the missing args will be read from STDIN"
+      exit 0
       ;;
     H)
       ftpHost=$OPTARG
