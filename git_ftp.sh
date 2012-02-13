@@ -51,41 +51,29 @@ done
 
 if [ $readMissingFromSTDIN = 1 ]
 then
-    if [ "x$ftpHost" = "x" ]
-    then
-        while [ $ftpHost = "" ]
-        do
-            read -p "Ftp host: " ftpHost
-        done
-    fi
-    if [ "x$ftpUser" = "x" ]
-    then
-        while [ $ftpUser = "" ]
-        do
-            read -p "Ftp username: " ftpUser
-        done
-    fi
-    if [ "x$ftpPassword" = "x" ]
-    then
-        while [ $ftpPassword = "" ]
-        do
-            #disable stdin
-            stty -echo
-            read -p "Ftp password: " ftpPassword; echo
-            #enable stdin
-            stty echo
-        done
-    fi
-    if [ "x$applicationPath" = "x" ]
-    then
-        while [ $applicationPath = "" ]
-        do
-            read -p "Project path: " applicationPath
-        done
-    fi
+    while [ -z $ftpHost ]
+    do
+        read -p "Ftp host: " ftpHost
+    done
+    while [ -z $ftpUser ]
+    do
+        read -p "Ftp username: " ftpUser
+    done
+    while [ -f $ftpPassword ]
+    do
+        #disable stdin
+        stty -echo
+        read -p "Ftp password: " ftpPassword; echo
+        #enable stdin
+        stty echo
+    done
+    while [ -z $applicationPath ]
+    do
+        read -p "Project path: " applicationPath
+    done
 fi
 
-if [ "x$ftpHost" = "x" ] || [ "x$ftpUser" = "x" ] || [ "x$ftpPassword" = "x" ] || [ "x$applicationPath" = "x" ]
+if [ -z $ftpHost ] || [ -z $ftpUser ] || [ -z $ftpPassword ] || [ -z $applicationPath ]
 then
     echo "Some vars are missing, try -h option to get some help" >&2
 fi
@@ -109,7 +97,7 @@ lastTag=$(git tag | xargs -I T git log -n 1 --format='%at T' T | sort | awk '{pr
 
 doneWorkSinceLastTag=$(git diff $lastTag --stat --name-only)
 
-if [ "x$doneWorkSinceLastTag" = "x" ]
+if [ -z $doneWorkSinceLastTag ]
 then
     echo "Nothing to do"
 else
