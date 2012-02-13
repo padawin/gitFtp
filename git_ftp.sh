@@ -48,23 +48,35 @@ if [ $readMissingFromSTDIN = 1 ]
 then
     if [ "x$ftpHost" = "x" ]
     then
-        read -p "Ftp host: " ftpHost
+        while [ $ftpHost = "" ]
+        do
+            read -p "Ftp host: " ftpHost
+        done
     fi
     if [ "x$ftpUser" = "x" ]
     then
-        read -p "Ftp username: " ftpUser
+        while [ $ftpUser = "" ]
+        do
+            read -p "Ftp username: " ftpUser
+        done
     fi
     if [ "x$ftpPassword" = "x" ]
     then
-        #disable stdin
-        stty -echo
-        read -p "Ftp password: " ftpPassword; echo
-        #enable stdin
-        stty echo
+        while [ $ftpPassword = "" ]
+        do
+            #disable stdin
+            stty -echo
+            read -p "Ftp password: " ftpPassword; echo
+            #enable stdin
+            stty echo
+        done
     fi
     if [ "x$applicationPath" = "x" ]
     then
-        read -p "Project path: " applicationPath
+        while [ $applicationPath = "" ]
+        do
+            read -p "Project path: " applicationPath
+        done
     fi
 else
     if [ "x$ftpHost" = "x" ] || [ "x$ftpUser" = "x" ] || [ "x$ftpPassword" = "x" ] || [ "x$applicationPath" = "x" ]
@@ -112,7 +124,12 @@ else
 
         echo $i $ftpCmd
 
-        read whatToDo
+        whatToDo=''
+
+        while [ "x$whatToDo" != "xY" ] && [ "x$whatToDo" != "xN" ]
+        do
+            read -p "What to do ? (Y/N)" whatToDo
+        done
 
         if [ $whatToDo = "Y" ]
         then
