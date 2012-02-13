@@ -10,8 +10,9 @@ ftpHost=''
 ftpUser=''
 ftpPassword=''
 applicationPath=''
+verbose=''
 
-while getopts ":hH:iu:p:P:" opt; do
+while getopts ":hH:iu:p:P:v" opt; do
   case $opt in
     h)
       echo "Usage : git_ftp.sh [-H host [-u username [-p password [-P projectPath [-i]]]]]"
@@ -33,6 +34,9 @@ while getopts ":hH:iu:p:P:" opt; do
       ;;
     P)
       applicationPath=$OPTARG
+      ;;
+    P)
+      verbause='v'
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -135,7 +139,7 @@ else
         if [ $whatToDo = "Y" ]
         then
             #send current file to ftp
-            ftp -vin $ftpHost <<EOF
+            ftp -in$verbause $ftpHost <<EOF
             binary
             user $ftpUser $ftpPassword
             $ftpCmd $i
