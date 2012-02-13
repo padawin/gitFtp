@@ -6,6 +6,10 @@
 #define some conf vars
 
 readMissingFromSTDIN=0
+ftpHost=''
+ftpUser=''
+ftpPassword=''
+applicationPath=''
 
 while getopts ":hH:iu:p:P:" opt; do
   case $opt in
