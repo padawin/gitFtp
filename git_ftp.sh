@@ -35,8 +35,8 @@ while getopts ":hH:iu:p:P:v" opt; do
     P)
       applicationPath=$OPTARG
       ;;
-    P)
-      verbause='v'
+    v)
+      verbose='v'
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -127,7 +127,7 @@ else
         if [ $whatToDo = "Y" ]
         then
             #send current file to ftp
-            ftp -in$verbause $ftpHost <<EOF
+            ftp -in$verbose $ftpHost <<EOF
             binary
             user $ftpUser $ftpPassword
             $ftpCmd $i
